@@ -1,0 +1,67 @@
+#	####################################################
+#	СИНТАКСИЧЕСКАЯ РАСКРАСКА ДЛЯ БИБИЛИОТЕКИ:
+#	iarduino_Modbus
+#	####################################################
+#	ТИПЫ ДАННЫХ:							   (KEYWORD1)
+	iarduino_Modbus	KEYWORD1
+	ModbusClient	KEYWORD1
+#	####################################################
+#	МЕТОДЫ И ФУНКЦИИ:						   (KEYWORD2)
+	begin	KEYWORD2
+	setTypeMB	KEYWORD2
+	searchERR	KEYWORD2
+	findID	KEYWORD2
+	sortID	KEYWORD2
+	checkID	KEYWORD2
+	changeID	KEYWORD2
+	coilRead	KEYWORD2
+	discreteInputRead	KEYWORD2
+	holdingRegisterRead	KEYWORD2
+	inputRegisterRead	KEYWORD2
+	coilWrite	KEYWORD2
+	holdingRegisterWrite	KEYWORD2
+	registerMaskWrite	KEYWORD2
+	beginTransmission	KEYWORD2
+	requestFrom	KEYWORD2
+	write	KEYWORD2
+	endTransmission	KEYWORD2
+	available	KEYWORD2
+	read	KEYWORD2
+	end	KEYWORD2
+	lastError	KEYWORD2
+	setTimeout	KEYWORD2
+	setDelay	KEYWORD2
+	exceptionStatusRead	KEYWORD2
+	getSate	KEYWORD2
+	getEventCounter	KEYWORD2
+	getEventLog	KEYWORD2
+	diagnostic	KEYWORD2
+	getInfo	KEYWORD2
+#	####################################################
+#	КОНСТАНТЫ:								   (LITERAL1)
+	MODBUS_RTU	LITERAL1
+	MODBUS_ASCII	LITERAL1
+	COILS	LITERAL1
+	DISCRETE_INPUTS	LITERAL1
+	HOLDING_REGISTERS	LITERAL1
+	INPUT_REGISTERS	LITERAL1
+	DEVICE_MB_ABSENT	LITERAL1
+	DEVICE_MB_DOUBLE	LITERAL1
+	DEVICE_MB_UNKNOWN	LITERAL1
+	DEVICE_MB_IARDUINO	LITERAL1
+	ERROR_ILLEGAL_FUNCTION	LITERAL1
+	ERROR_ILLEGAL_ADDRESS	LITERAL1
+	ERROR_ILLEGAL_VALUE	LITERAL1
+	ERROR_DEVICE_FAILURE	LITERAL1
+	ERROR_ACKNOWLEDGE	LITERAL1
+	ERROR_DEVICE_BUSY	LITERAL1
+	ERROR_MEMORY_PARITY	LITERAL1
+	ERROR_GATEWAY_UNAVAILABLE	LITERAL1
+	ERROR_GATEWAY_NO_DEVICE	LITERAL1
+	ERROR_SYNTAX	LITERAL1
+	ERROR_ADR_IARDUINO	LITERAL1
+	ERROR_ADR_RESPONSE	LITERAL1
+	ERROR_VAL_RESPONSE	LITERAL1
+	ERROR_CRC_RESPONSE	LITERAL1
+	ERROR_LEN_REQUEST	LITERAL1
+	ERROR_LEN_RESPONSE	LITERAL1
