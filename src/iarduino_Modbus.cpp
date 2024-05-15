@@ -219,7 +219,7 @@ uint16_t ModbusClient::requestFrom(uint8_t id, uint8_t type, uint16_t reg, uint1
 			return requestSUM;																								//	Возвращаем количество прочитанных значений.
 }																															//
 																															//
-//		ФУНКЦИЯ ЧТЕНИЯ ОЧЕРЕДНОГО ПОЛУЧЕННОГО ЗНАЧЕНИЯ ПОСЛЕ requestFrom(), findID(), getEventLog(), getInfo():				//	Возвращает значение (0/1/0...65535), или -1 при неудаче.
+//		ФУНКЦИЯ ЧТЕНИЯ ОЧЕРЕДНОГО ПОЛУЧЕННОГО ЗНАЧЕНИЯ ПОСЛЕ requestFrom(), findID(), getEventLog(), getInfo(), getName():	//	Возвращает значение (0/1/0...65535), или -1 при неудаче.
 int32_t ModbusClient::read(void){																							//
 			uint16_t i, j=requestSUM-requestCNT;																			//
 			if( requestCNT==0   ){ codeError=ERROR_SYNTAX; return -1; }														//	Возвращаем флаг ошибки.
@@ -227,6 +227,7 @@ int32_t ModbusClient::read(void){																							//
 			if( arrADU[1]<=0x04 ){ i=(arrADU[3+(j*2)]<<8)|arrADU[4+(j*2)];}else												//	Читаем 2 байта полученные из регистров (AO), или (AI).
 			if( arrADU[1]==0x05 ){ i= arrADU[2+ j   ]; }else																//	Читаем 1 байт найденный функцией findID().
 			if( arrADU[1]==0x11 ){ i= arrADU[3+ j   ]; }else																//	Читаем 1 байт полученный функцией getInfo().
+			if( arrADU[1]==0x12 ){ i= arrADU[3+ j   ]; }else																//	Читаем 1 байт полученный функцией getName().
 			if( arrADU[1]==0x0C ){ if(j<3){i=(arrADU[3+(j*2)]<<8)|arrADU[4+(j*2)];}else{i=arrADU[6+j];} }else				//	Читаем 2 или 1 байт полученный функцией getEventLog().
 			                     { codeError=ERROR_SYNTAX; return -1; }														//	
 			requestCNT--;																									//	Уменьшаем счётчик количества оставшихся обращений к функций read()
@@ -289,6 +290,16 @@ uint8_t	ModbusClient::getInfo(uint8_t id){																					//	id - SlaveID.
 			if( lenADU!=(arrADU[2]+3) ){ codeError=ERROR_LEN_RESPONSE; return 0; }											//	Проверяем размер полученного ответа без CRC.
 			if( arrADU[2]<2           ){ codeError=ERROR_VAL_RESPONSE; return 0; }											//	Проверяем количество байт в полях ID*, WORK, DATA.
 			requestSUM=arrADU[2]; requestCNT=requestSUM; return requestSUM;													//	Сохраняем количество байт в полях ID*, WORK, DATA как доступные для чтения функцией read().
+}																															//
+																															//
+//		ФУНКЦИЯ ЧТЕНИЯ НАЗВАНИЯ УСТРОЙСТВА:																					//	Возвращает строку с названием типа String.
+uint8_t	ModbusClient::getName(uint8_t id){																					//	id - SlaveID.
+			arrADU[0]=id; arrADU[1]=0x12; lenADU=2;																			//	Формируем запрос: [0] SlaveID, [1] COM=0x12.
+			if( _rwADU()==false       ){ return 0; }																		//	Выполняем отправку запроса и получения ответа.
+			if( lenADU<5              ){ codeError=ERROR_LEN_RESPONSE; return 0; }											//	Проверяем размер полученного ответа без CRC.
+			if( lenADU!=(arrADU[2]+3) ){ codeError=ERROR_LEN_RESPONSE; return 0; }											//	Проверяем размер полученного ответа без CRC.
+			if( arrADU[2]==0          ){ codeError=ERROR_VAL_RESPONSE; return 0; }											//	Проверяем количество байт в поле NAME.
+			requestSUM=arrADU[2]; requestCNT=requestSUM; return requestSUM;													//	Сохраняем количество байт в поле NAME как доступные для чтения функцией read().
 }																															//
 																															//
 //		ФУНКЦИЯ ОТПРАВКИ/ПОЛУЧЕНИЯ ADU:																						//

@@ -37,6 +37,7 @@
 	getEventLog	KEYWORD2
 	diagnostic	KEYWORD2
 	getInfo	KEYWORD2
+	getName	KEYWORD2
 #	####################################################
 #	КОНСТАНТЫ:								   (LITERAL1)
 	MODBUS_RTU	LITERAL1
